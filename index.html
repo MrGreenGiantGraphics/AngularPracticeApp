@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html ng-app="myQuiz">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Test Your Knowledge: Saturn</title>
+		<link rel="stylesheet" type="text/css" href="css/quiz.css">
+	</head>
+	<body>
+
+		<!-- Outermost container for the quiz -->
+		<div id="myQuiz" ng-controller="QuizController">
+			
+			<h1>Test Your Knowledge: <span>Saturn</span></h1>
+			<div class="progress">
+				<div class="{{($index===activeQuestion) ? 'on' : 'off' }}" ng-repeat="myQuestion in myQuestions">
+				</div>
+			</div>
+			<!-- IntroScreen -->
+			<div class="intro {{ (activeQuestion > -1) ? 'inactive' : 'active' }}">
+				<h2>Welcome</h2>
+				<p>Click begin to test your knowldge of Saturn</p>
+				<p class="btn" ng-click="activeQuestion = 0">Begin</p>
+			</div><!-- IntroScreen -->
+			<!-- Question -->
+			<div class="question 
+			{{$index === activeQuestion? 'active':'inactive'}}
+			{{myQuestion.questionState === 'answered'? 'answered':'unanswered'}}
+			" ng-repeat="myQuestion in myQuestions">
+				<p class="txt">{{myQuestion.question}}</p>
+				<p class="ans" 
+				ng-click="selectAnswer($parent.$index,$index)"
+				ng-repeat="Answer in myQuestions[$index].answers">
+					{{Answer.text}}
+				</p>
+				<div class="feedback">
+					<p>You are <strong>correct</strong> !</p>
+					<p>Oops! That is not correct !</p>
+					<p>Additional Feedback</p>
+					<div class="btn">Continue</div>
+				</div>
+			</div><!-- Question -->
+			<div class="results">
+				<h3>Results</h3>
+				<p>You scored X% by correctly answering X out of the total X questions.</p>
+				<p>Use the links below to challenge your friends</p>
+				<div class="share">
+					<a href="#" class="btn email">Email</a>
+					<a href="#" class="btn twitter">Tweet</a>
+				</div>
+			</div>
+
+		</div><!-- Outermost container for the quiz -->
+		
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/quiz.js"></script>
+	</body>
+</html>
